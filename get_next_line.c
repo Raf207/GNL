@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/01 18:30:45 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:46:45 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ char	*get_next_line(int fd)
 
 // int	main(void)
 // {
-// 	int	fd;
-// 	char *str;
+// 	int		fd;
+// 	char	*str;
 
-// 	fd = open("texte.txt", O_RDONLY);
+// 	fd = open("text.txt", O_RDONLY);
 // 	int i = -1;
-// 	while (++i < 1)
+// 	while (++i < 20)
 // 	{
 // 		str = get_next_line(fd);
 // 		printf("new : %s\n", str);

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:37:33 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/01 18:28:12 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:36:08 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_addlist(t_list **list, char *str)
 	new_node->next = NULL;
 }
 
-int		ft_countlen(t_list *list)
+int	ft_countlen(t_list *list)
 {
 	int	tot_len;
 	int	i;
