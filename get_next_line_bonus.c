@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/02 15:27:42 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:51:29 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,25 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-#include <fcntl.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
-	int		i;
-	int		fd2;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
+// 	int		i;
+// 	int		fd2;
 
-	fd = open("text.txt", O_RDONLY);
-	fd2 = open("test.txt", O_RDONLY);
-	i = -1;
-	while (++i < 5)
-	{
-		str = get_next_line(fd);
-		printf("fd : %s\n", str);
-		free(str);
-		str = get_next_line(fd2);
-		printf("fd2 : %s\n", str);
-		free(str);
-	}
-}
+// 	fd = open("text.txt", O_RDONLY);
+// 	fd2 = open("test.txt", O_RDONLY);
+// 	i = -1;
+// 	while (++i < 5)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf("fd : %s\n", str);
+// 		free(str);
+// 		str = get_next_line(fd2);
+// 		printf("fd2 : %s\n", str);
+// 		free(str);
+// 	}
+// }
