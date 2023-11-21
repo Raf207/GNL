@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/10 14:51:29 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:48:20 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_find_nl(t_list *list)
 	return (0);
 }
 
-void	ft_createlist(t_list **list, int fd)
+int	ft_createlist(t_list **list, int fd)
 {
 	char	*buffer;
 	int		counter;
@@ -76,27 +76,32 @@ void	ft_createlist(t_list **list, int fd)
 	{
 		buffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buffer)
-			return ;
+			return (ft_cleanlist(list, NULL), 1);
 		counter = read(fd, buffer, BUFFER_SIZE);
 		if (counter == 0)
-			return (free(buffer));
+			return (free(buffer), 0);
 		buffer[counter] = '\0';
 		ft_addlist(list, buffer);
 	}
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[100];
+	static t_list	*list[4096];
 	char			*str;
 	char			*last;
 
-	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 0)
-		return (NULL);
+	if (fd < 0 || fd > 4096 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 0)
+		return (ft_cleanlist(&list[fd], NULL), NULL);
 	ft_createlist(&list[fd], fd);
+	if (ft_createlist(&list[fd], fd) == 1)
+		return (NULL);
 	if (!list[fd])
 		return (NULL);
 	str = ft_getline(list[fd]);
+	if (!str)
+		return (ft_cleanlist(&list[fd], NULL), NULL);
 	last = ft_lastpart(list[fd]);
 	ft_cleanlist(&list[fd], last);
 	return (str);

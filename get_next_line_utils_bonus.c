@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:37:33 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/02 15:09:36 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:51:50 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_cleanlist(t_list **list, char *last)
 		return ;
 	new_node = malloc (sizeof(t_list));
 	if (!new_node)
-		return ;
+		return (free(last));
 	new_node->next = NULL;
 	new_node->buffer_str = last;
 	*list = new_node;
@@ -45,19 +45,18 @@ char	*ft_lastpart(t_list *list)
 	t_list	*last_node;
 
 	last_node = ft_lastnode(list);
-	i = -1;
+	i = 0;
 	len = 0;
-	while (last_node->buffer_str[++i] && last_node->buffer_str[i] != '\n')
-		;
-	while (last_node->buffer_str[i + len])
-		len++;
-	last_part = malloc (sizeof(char) * len);
+	last_part = malloc (sizeof(char) * (BUFFER_SIZE + 1));
 	if (!last_part)
 		return (NULL);
-	len = 0;
+	while (last_node->buffer_str[i] && last_node->buffer_str[i] != '\n')
+		i++;
 	while (last_node->buffer_str[i] && last_node->buffer_str[++i])
 		last_part[len++] = last_node->buffer_str[i];
 	last_part[len] = '\0';
+	if (last_part[0] == '\0')
+		return (free(last_part), NULL);
 	return (last_part);
 }
 
@@ -77,7 +76,7 @@ void	ft_addlist(t_list **list, char *str)
 
 	new_node = (t_list *) malloc (sizeof(t_list));
 	if (!new_node)
-		return ;
+		return (free(str));
 	last_node = ft_lastnode(*list);
 	if (!last_node)
 		*list = new_node;

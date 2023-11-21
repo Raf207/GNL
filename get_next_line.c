@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/02 15:14:58 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:07:31 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_find_nl(t_list *list)
 	return (0);
 }
 
-void	ft_createlist(t_list **list, int fd)
+int	ft_createlist(t_list **list, int fd)
 {
 	char	*buffer;
 	int		counter;
@@ -76,13 +76,14 @@ void	ft_createlist(t_list **list, int fd)
 	{
 		buffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buffer)
-			return ;
+			return (ft_cleanlist(list, NULL), 1);
 		counter = read(fd, buffer, BUFFER_SIZE);
 		if (counter == 0)
-			return (free(buffer));
+			return (free(buffer), 0);
 		buffer[counter] = '\0';
 		ft_addlist(list, buffer);
 	}
+	return (0);
 }
 
 char	*get_next_line(int fd)
@@ -91,12 +92,15 @@ char	*get_next_line(int fd)
 	char			*str;
 	char			*last;
 
-	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || read(fd, &str, 0) < 0 || BUFFER_SIZE < 0)
+		return (ft_cleanlist(&list, NULL), NULL);
+	if (ft_createlist(&list, fd) == 1)
 		return (NULL);
-	ft_createlist(&list, fd);
 	if (!list)
 		return (NULL);
 	str = ft_getline(list);
+	if (!str)
+		return (ft_cleanlist(&list, NULL), NULL);
 	last = ft_lastpart(list);
 	ft_cleanlist(&list, last);
 	return (str);
@@ -111,10 +115,10 @@ char	*get_next_line(int fd)
 
 // 	fd = open("text.txt", O_RDONLY);
 // 	int i = -1;
-// 	while (++i < 20)
+// 	while (++i < 6)
 // 	{
 // 		str = get_next_line(fd);
-// 		printf("new : %s\n", str);
+// 		printf("ligne : %s\n",str);
 // 		free(str);
 // 	}
 // }

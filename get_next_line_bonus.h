@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:07:43 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/02 15:09:58 by rafnasci         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:17:37 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-void	ft_createlist(t_list **list, int fd);
+int		ft_createlist(t_list **list, int fd);
 t_list	*ft_lastnode(t_list *list);
 void	ft_addlist(t_list **list, char *str);
 int		ft_find_nl(t_list *list);
