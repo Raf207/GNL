@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2024/03/21 16:49:07 by rafnasci         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:02:11 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (ft_cleanlist(&list[fd], NULL), NULL);
 	last = ft_lastpart(list[fd]);
-	if (!last)
-		return (ft_cleanlist(&list[fd], NULL), free(str), NULL);
 	ft_cleanlist(&list[fd], last);
+	if (!last)
+		return (free(str), NULL);
 	return (str);
 }
 
