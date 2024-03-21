@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/21 13:48:20 by rafnasci         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:49:07 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ int	ft_createlist(t_list **list, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[4096];
+	static t_list	*list[OPEN_MAX];
 	char			*str;
 	char			*last;
 
-	if (fd < 0 || fd > 4096 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd > OPEN_MAX || read(fd, 0, 0) < 0 || BUFFER_SIZE < 0
+		|| BUFFER_SIZE > INT32_MAX - 1)
 		return (ft_cleanlist(&list[fd], NULL), NULL);
-	ft_createlist(&list[fd], fd);
 	if (ft_createlist(&list[fd], fd) == 1)
 		return (NULL);
 	if (!list[fd])
@@ -103,6 +103,8 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (ft_cleanlist(&list[fd], NULL), NULL);
 	last = ft_lastpart(list[fd]);
+	if (!last)
+		return (ft_cleanlist(&list[fd], NULL), free(str), NULL);
 	ft_cleanlist(&list[fd], last);
 	return (str);
 }

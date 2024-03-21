@@ -1,8 +1,3 @@
-
-
-
-
-NULL
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Nullam venenatis ex tempor nulla convallis pellentesque.
 Duis nec velit congue, sodales felis ac, viverra arcu.

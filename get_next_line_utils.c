@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:37:33 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/21 14:05:22 by rafnasci         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:42:54 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_cleanlist(t_list **list, char *last)
 	*list = NULL;
 	if (!last)
 		return ;
+	if (last[0] == '\0')
+		return (free(last));
 	new_node = malloc (sizeof(t_list));
 	if (!new_node)
 		return (free(last));
@@ -55,8 +57,6 @@ char	*ft_lastpart(t_list *list)
 	while (last_node->buffer_str[i] && last_node->buffer_str[++i])
 		last_part[len++] = last_node->buffer_str[i];
 	last_part[len] = '\0';
-	if (last_part[0] == '\0')
-		return (free(last_part), NULL);
 	return (last_part);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:18:38 by rafnasci          #+#    #+#             */
-/*   Updated: 2023/11/21 14:07:31 by rafnasci         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:47:47 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ char	*get_next_line(int fd)
 	char			*str;
 	char			*last;
 
-	if (fd < 0 || read(fd, &str, 0) < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd > OPEN_MAX || read(fd, &str, 0) < 0 || BUFFER_SIZE < 0
+		|| BUFFER_SIZE > INT32_MAX - 1)
 		return (ft_cleanlist(&list, NULL), NULL);
 	if (ft_createlist(&list, fd) == 1)
 		return (NULL);
@@ -102,6 +103,8 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (ft_cleanlist(&list, NULL), NULL);
 	last = ft_lastpart(list);
+	if (!last)
+		return (ft_cleanlist(&list, NULL), free(str), NULL);
 	ft_cleanlist(&list, last);
 	return (str);
 }
@@ -112,13 +115,15 @@ char	*get_next_line(int fd)
 // {
 // 	int		fd;
 // 	char	*str;
+// 	int		i;
 
+// 	i = 0;
 // 	fd = open("text.txt", O_RDONLY);
-// 	int i = -1;
-// 	while (++i < 6)
+// 	str = get_next_line(fd);
+// 	while (str)
 // 	{
 // 		str = get_next_line(fd);
-// 		printf("ligne : %s\n",str);
-// 		free(str);
-// 	}
-// }
+// 		printf("ligne %d: %s\n", ++i, str);
+//  		free(str);
+//  	}
+//  }
